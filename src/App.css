@@ -1,9 +1,28 @@
 .cardSlider{
   margin: 0 20px;
 
+  .red{
+    background-color: rgb(255, 42, 42);
+  }
+
+  .blue{
+    background-color: rgb(23, 61, 255);
+  }
+
+  .lightBlue{
+    background-color: rgb(33, 237, 252);
+  }
+
+  .green{
+    background-color: rgb(42, 255, 60);
+  }
+
   .tabs{
     display: flex;
     height: 30px;
+    margin: 0;
+    padding: 0;
+
 
     .tab{
       list-style: none;
@@ -23,4 +42,27 @@
       }
     }
   }
+
+  .sliderContainer{
+    .leftButton, .rightButton{}
+
+    .leftButton{}
+
+    .rightButton{}
+
+    .sliderContainer{
+      display: flex;
+      flex-flow: row nowrap;
+
+      .sliderItem{
+        height: 100px;
+        flex: 1;
+
+        .card{}
+
+        .cardSelector{}
+      }
+    }
+  }
 }
+
