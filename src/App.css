@@ -44,23 +44,65 @@
   }
 
   .sliderContainer{
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+
     .leftButton, .rightButton{}
 
-    .leftButton{}
+    .leftButton{
+      grid-area: 1/1/2/2;
+    }
 
-    .rightButton{}
+    .rightButton{
+      grid-area: 1/3/2/4;
+    }
 
-    .sliderContainer{
+    .slideContainer{
+      grid-area: 1/2/2/3;
       display: flex;
       flex-flow: row nowrap;
 
-      .sliderItem{
-        height: 100px;
-        flex: 1;
+      .slider{
+        display: flex;
+        flex-flow: row nowrap;
+        width: 100%;
+        transition: transform 1s;
+        overflow: hidden;
 
-        .card{}
+        .slide{
+          flex: 0 0 100%;
+          display: grid;
+          grid-template: 300px / 1fr 1fr 1fr 1fr 1fr;
 
-        .cardSelector{}
+        .sliderItem{
+  
+          .cardItem{
+            position: relative;
+            display: flex;
+
+            button{
+              position: absolute;
+            }
+            imgContainer{
+              width: 90%;
+              img{
+                width: 100%;
+              }
+            }
+            p{
+              width: 90%;
+            }
+          }
+  
+          .cardSelector{
+            p{}
+            select{
+              option{}
+            }
+            button{}
+          }
+        } 
+      }
       }
     }
   }

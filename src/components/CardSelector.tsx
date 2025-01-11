@@ -1,24 +1,27 @@
 import React from "react";
-import { Card } from "../Model/Cards";
 
 interface CardSelectorProps {
-  cards: Card[];
+  cardNames: string[];
 }
 
 const CardSelector = (props: CardSelectorProps) => {
-  const { cards } = props;
+  const { cardNames } = props;
 
   // Render options of the cards of the current deck into the select element
-  const cardOptions: React.ReactNode = cards.map((card) => <option value={card.name}>{card.name}</option>);
+  const cardOptions: React.ReactNode = cardNames.map((name) => (
+    <option value={name} key={name}>{name}</option>
+  ));
 
   return (
-    <div className="cardSelector">
-      <p>Add Card</p>
-      <select name="cardSelector" id="cardSelector">
-        <option value="">--Please select a card--</option>
-        {cardOptions}
-      </select>
-      <button>Add</button>
+    <div className="sliderItem">
+      <div className="cardSelector">
+        <p>Add Card</p>
+        <select name="cardSelector" id="cardSelector">
+          <option value="">--Please select a card--</option>
+          {cardOptions}
+        </select>
+        <button>Add</button>
+      </div>
     </div>
   );
 };

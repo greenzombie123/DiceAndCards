@@ -29,7 +29,7 @@ const Slider = ({ currentDeck, cards, sliderPosition }: SliderProps) => {
   );
 
   return <div className={`${backgroundColor + " sliderContainer"}`}>
-    <InnerSlider cards={cards} sliderPosition={sliderPosition}/>
+    <InnerSlider cards={cards} sliderPosition={sliderPosition} currentDeck={currentDeck}/>
   </div>;
 };
 
