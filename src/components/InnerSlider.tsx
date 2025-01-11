@@ -31,7 +31,7 @@ const InnerSlider = (props: InnerSliderProps) => {
   );
 
   // Confirm the number of slides in the slider
-  const numOfSlides = Math.floor((displayedCards.length + 1) / 5);
+  const numOfSlides = Math.ceil(displayedCards.length / 5) || 1;
 
   // Will be used to place slides in it and finally passed as children to this component.
   const slides: JSX.Element[] = [];
@@ -42,12 +42,12 @@ const InnerSlider = (props: InnerSliderProps) => {
   console.log(
     numOfSlides,
     displayedCards.length,
-    Math.floor(displayedCards.length + 1 / 5)
+    Math.floor(Math.ceil(displayedCards.length / 5) || 1)
   );
 
 
   // Loop through each slide
-  for (let slideIndex = 0; slideIndex < numOfSlides; slideIndex++) {
+  for (let slideIndex = 1; slideIndex <= numOfSlides; slideIndex++) {
     const slideItems: JSX.Element[] = [];
 
     // Place card items in the current slide
@@ -58,8 +58,8 @@ const InnerSlider = (props: InnerSliderProps) => {
       }
     }
 
-    // If there is less than 5 items in the slide, put the CardSelector in it
-    if (slideIndex + 1 === numOfSlides && slideItems.length !== 5) {
+    // If this is the last slide and there is less than 5 items in the slide, put the CardSelector in it
+    if (slideIndex === numOfSlides && slideItems.length !== 5) {
       slideItems.push(cardSelector);
 
       const slide = (
@@ -70,8 +70,8 @@ const InnerSlider = (props: InnerSliderProps) => {
 
       slides.push(slide);
     }
-    // If there is exactly 5 items in the slide, create a new slide and put the Card Selector in it
-    else if (slideIndex + 1 === numOfSlides && slideItems.length === 5) {
+    // If this is the last slide and there is exactly 5 items in the slide, create a new slide and put the Card Selector in it
+    else if (slideIndex === numOfSlides && slideItems.length === 5) {
       const slide = (
         <div key={slideIndex} className="slide" id={`${slideIndex}`}>
           {slideItems}
