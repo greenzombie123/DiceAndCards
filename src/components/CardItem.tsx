@@ -14,7 +14,7 @@ const CardItem = (props: CardProps) => {
       <div className="imgContainer">
         <img src={card.img} alt="" />
       </div>
-      <p></p>
+      <p>{card.name}</p>
     </div>
   </div>;
 };

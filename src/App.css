@@ -1,3 +1,7 @@
+:root{
+  --wordSize:2vw;
+}
+
 .cardSlider{
   margin: 0 20px;
 
@@ -72,34 +76,48 @@
         .slide{
           flex: 0 0 100%;
           display: grid;
-          grid-template: 300px / 1fr 1fr 1fr 1fr 1fr;
+          grid-template: auto / 1fr 1fr 1fr 1fr 1fr;
+          gap: 10px;
+          padding: 15px 0;
 
         .sliderItem{
   
           .cardItem{
             position: relative;
             display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            gap: 10px;
+            height: 100%;
 
             button{
               position: absolute;
             }
-            imgContainer{
-              width: 90%;
+            .imgContainer{
+              flex: 1;
               img{
+                height: auto;
                 width: 100%;
               }
             }
             p{
-              width: 90%;
+              margin: 0;
+              font-size: var(--wordSize);
+              text-align: center;
             }
           }
   
           .cardSelector{
-            p{}
+            p{
+              font-size: var(--wordSize);
+            }
             select{
+              width: 100%;
               option{}
             }
-            button{}
+            button{
+              width: 100%;
+            }
           }
         } 
       }
