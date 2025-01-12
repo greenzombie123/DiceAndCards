@@ -2,16 +2,18 @@ import React from "react";
 import { Card, Deck } from "../Model/Cards";
 import CardItem from "./CardItem";
 import CardSelector from "./CardSelector";
-import { SliderPosition } from "./CardSlider";
+import { ChangeEvent, SliderPosition } from "./CardSlider";
 
 interface InnerSliderProps {
   cards: Card[];
   sliderPosition: SliderPosition;
   currentDeck: Deck;
+  onChange:(event:ChangeEvent)=>void,
+  onAddButtonClick:()=>void
 }
 
 const InnerSlider = (props: InnerSliderProps) => {
-  const { cards, sliderPosition, currentDeck } = props;
+  const { cards, sliderPosition, currentDeck, onChange, onAddButtonClick } = props;
 
   // Gets cards by deck and get the cards that are being displayed
   const cardsByDeck: Card[] = cards.filter((card) => card.deck === currentDeck);
@@ -21,13 +23,12 @@ const InnerSlider = (props: InnerSliderProps) => {
     .map((card) => <CardItem key={card.name} card={card} />);
 
   // Get the name of cards that will be displayed in the select element
-  const cardSelectorCardList: string[] = cardsByDeck
+  const cardSelectorCardList: Card[] = cardsByDeck
     .filter((card) => !card.isDisplayed)
-    .map((card) => card.name);
 
   // Create CardSelector in advance and pass card name list
   const cardSelector = (
-    <CardSelector key={"cardSelector"} cardNames={cardSelectorCardList} />
+    <CardSelector key={"cardSelector"} onAddButtonClick={onAddButtonClick} onChange={onChange} cardNames={cardSelectorCardList} />
   );
 
   // Confirm the number of slides in the slider

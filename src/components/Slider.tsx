@@ -1,14 +1,16 @@
 import { Card, Deck } from "../Model/Cards";
-import { SliderPosition } from "./CardSlider";
+import { ChangeEvent, SliderPosition } from "./CardSlider";
 import InnerSlider from "./InnerSlider";
 
 interface SliderProps {
   currentDeck: Deck;
   cards: Card[];
   sliderPosition: SliderPosition;
+  onChange:(event:ChangeEvent)=>void,
+  onAddButtonClick:()=>void
 }
 
-const Slider = ({ currentDeck, cards, sliderPosition }: SliderProps) => {
+const Slider = ({ currentDeck, cards, sliderPosition, onChange, onAddButtonClick }: SliderProps) => {
   const backgroundColor =
     currentDeck === "barbarian"
       ? "red"
@@ -29,7 +31,7 @@ const Slider = ({ currentDeck, cards, sliderPosition }: SliderProps) => {
   );
 
   return <div className={`${backgroundColor + " sliderContainer"}`}>
-    <InnerSlider cards={cards} sliderPosition={sliderPosition} currentDeck={currentDeck}/>
+    <InnerSlider cards={cards} sliderPosition={sliderPosition} currentDeck={currentDeck} onChange={onChange} onAddButtonClick={onAddButtonClick}/>
   </div>;
 };
 
