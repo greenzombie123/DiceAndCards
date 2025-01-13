@@ -23,11 +23,21 @@ const CardSlider = () => {
   const handleOptionClick = (event:ChangeEvent)=>setSelected(event.target.value)
 
   const handleAddButtonClick = ()=>{
+    // Return if no card is selected or that card is not found
     if(selected === "") return 
     const card = findCard(selected)
     if(!card)return
+
+    // Change the chosen card's isDisplayed to true and change the max slide of the slider position
     const newCards = [...cards].map(newCard=> newCard.name === card.name ? {...newCard, isDisplayed:true }: newCard) 
     setCards(newCards)
+
+    const currentDisplayedCards:Card[] = cards.filter(card=> card.isDisplayed && card.deck === currentDeck)
+    currentDisplayedCards.push(card)
+
+    const maxSlides = Math.ceil(currentDisplayedCards.length/5)
+
+    setSliderPosition({...sliderPosition, max:maxSlides})
   }
 
   const findCard = (name:string)=> cards.find(card=>card.name === name)

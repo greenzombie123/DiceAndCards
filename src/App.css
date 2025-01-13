@@ -72,6 +72,10 @@
       display: flex;
       flex-flow: row nowrap;
 
+      .leftButton, .rightButton{
+        
+      }
+
       .slider{
         display: flex;
         flex-flow: row nowrap;
