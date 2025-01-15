@@ -42,12 +42,6 @@ const InnerSlider = (props: InnerSliderProps) => {
   // Used to insure that every CardItem is placed in the correct slide.
   let cardCount: number = 0;
 
-//   console.log(
-//     numOfSlides,
-//     displayedCards.length,
-//     Math.floor(Math.ceil(displayedCards.length / 5) || 1)
-//   );
-
 
   // Loop through each slide
   for (let slideIndex = 1; slideIndex <= numOfSlides; slideIndex++) {
@@ -125,6 +119,17 @@ const InnerSlider = (props: InnerSliderProps) => {
         })
     }
   },[current])
+
+  useEffect(()=>{
+    if(slideRef.current){
+        const currentSlide = slideRef.current
+
+        currentSlide.scrollIntoView({
+            inline:"start",
+            behavior:"instant"
+        })
+    }
+  },[currentDeck])
 
   return (
     <div className="slideContainer">
