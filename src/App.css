@@ -56,15 +56,48 @@
   .sliderContainer{
     display: grid;
     grid-template-columns: 1fr 10fr 1fr;
+    align-items: center;
+    justify-items: center;
 
-    .leftButton, .rightButton{}
+    .leftButton, .rightButton{
+      position: relative; 
+      width: 4vw;
+      height: 3vw;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      &::after{
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        content: "";
+        border: solid black;
+        border-width: 0 6px 6px 0;
+        padding: 1vw;
+      }
+
+      &:active::after{
+        border-color: yellow;
+      }
+    }
 
     .leftButton{
       grid-area: 1/1/2/2;
+
+      &::after{
+        right: 0;
+        transform: rotate(135deg);
+      }
     }
 
     .rightButton{
       grid-area: 1/3/2/4;
+
+      &::after{
+        left: 0;
+        transform: rotate(-45deg);
+      }
     }
 
     .slideContainer{
@@ -72,23 +105,20 @@
       display: flex;
       flex-flow: row nowrap;
 
-      .leftButton, .rightButton{
-        
-      }
-
       .slider{
         display: flex;
         flex-flow: row nowrap;
         width: 100%;
         transition: transform 1s;
         overflow: hidden;
+        scroll-behavior: smooth;
 
         .slide{
           flex: 0 0 100%;
           display: grid;
           grid-template: auto / 1fr 1fr 1fr 1fr 1fr;
           gap: .5vw;
-          padding: 1vw 0;
+          padding: 1vw 5px;
 
         .sliderItem{
   

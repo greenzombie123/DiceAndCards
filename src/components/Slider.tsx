@@ -1,16 +1,24 @@
 import { Card, Deck } from "../Model/Cards";
-import { ChangeEvent, SliderPosition } from "./CardSlider";
+import { ChangeEvent, SliderPositions } from "./CardSlider";
 import InnerSlider from "./InnerSlider";
 
 interface SliderProps {
   currentDeck: Deck;
   cards: Card[];
-  sliderPosition: SliderPosition;
-  onChange:(event:ChangeEvent)=>void,
-  onAddButtonClick:()=>void
+  sliderPositions: SliderPositions;
+  onChange: (event: ChangeEvent) => void;
+  onAddButtonClick: () => void;
+  onArrowButtonClick: (slideIndex: number) => () => void;
 }
 
-const Slider = ({ currentDeck, cards, sliderPosition, onChange, onAddButtonClick }: SliderProps) => {
+const Slider = ({
+  currentDeck,
+  cards,
+  sliderPositions,
+  onChange,
+  onAddButtonClick,
+  onArrowButtonClick,
+}: SliderProps) => {
   const backgroundColor =
     currentDeck === "barbarian"
       ? "red"
@@ -20,19 +28,34 @@ const Slider = ({ currentDeck, cards, sliderPosition, onChange, onAddButtonClick
       ? "lightBlue"
       : "green";
 
+  const { current, max } = sliderPositions[currentDeck];
+  const prevSlide = current - 1 >= 1 ? `#${current - 1}` : "";
+  const nextSlide = current + 1 <= max ? `#${current + 1}` : "";
 
-// Render the arrow buttons based on the inner sliders's position
-  const leftArrow = sliderPosition.current !== 0 && (
-    <button className="leftButton"></button>
+  // Render the arrow buttons based on the inner sliders's position
+  const leftButton = sliderPositions[currentDeck].current !== 1 && (
+    <button className="leftButton" onClick={onArrowButtonClick(-1)}></button>
   );
 
-  const rightArrow = (sliderPosition.max !== 0 && sliderPosition.current !== sliderPosition.max) && (
-    <button className="rightButton"></button>
-  );
+  const rightButton = sliderPositions[currentDeck].max !== 1 &&
+    sliderPositions[currentDeck].current !==
+      sliderPositions[currentDeck].max && (
+      <button className="rightButton" onClick={onArrowButtonClick(1)}></button>
+    );
 
-  return <div className={`${backgroundColor + " sliderContainer"}`}>
-    <InnerSlider cards={cards} sliderPosition={sliderPosition} currentDeck={currentDeck} onChange={onChange} onAddButtonClick={onAddButtonClick}/>
-  </div>;
+  return (
+    <div className={`${backgroundColor + " sliderContainer"}`}>
+      {leftButton}
+      <InnerSlider
+        cards={cards}
+        sliderPositions={sliderPositions}
+        currentDeck={currentDeck}
+        onChange={onChange}
+        onAddButtonClick={onAddButtonClick}
+      />
+      {rightButton}
+    </div>
+  );
 };
 
 export default Slider;

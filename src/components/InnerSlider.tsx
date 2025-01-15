@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Card, Deck } from "../Model/Cards";
 import CardItem from "./CardItem";
 import CardSelector from "./CardSelector";
-import { ChangeEvent, SliderPosition } from "./CardSlider";
+import { ChangeEvent, SliderPositions } from "./CardSlider";
 
 interface InnerSliderProps {
   cards: Card[];
-  sliderPosition: SliderPosition;
+  sliderPositions: SliderPositions;
   currentDeck: Deck;
   onChange:(event:ChangeEvent)=>void,
   onAddButtonClick:()=>void
 }
 
 const InnerSlider = (props: InnerSliderProps) => {
-  const { cards, sliderPosition, currentDeck, onChange, onAddButtonClick } = props;
+  const { cards, sliderPositions, currentDeck, onChange, onAddButtonClick } = props;
+  const {current} = sliderPositions[currentDeck]
+  const slideRef = useRef<HTMLDivElement|null>(null)
 
   // Gets cards by deck and get the cards that are being displayed
   const cardsByDeck: Card[] = cards.filter((card) => card.deck === currentDeck);
@@ -40,11 +42,11 @@ const InnerSlider = (props: InnerSliderProps) => {
   // Used to insure that every CardItem is placed in the correct slide.
   let cardCount: number = 0;
 
-  console.log(
-    numOfSlides,
-    displayedCards.length,
-    Math.floor(Math.ceil(displayedCards.length / 5) || 1)
-  );
+//   console.log(
+//     numOfSlides,
+//     displayedCards.length,
+//     Math.floor(Math.ceil(displayedCards.length / 5) || 1)
+//   );
 
 
   // Loop through each slide
@@ -58,13 +60,20 @@ const InnerSlider = (props: InnerSliderProps) => {
         cardCount++;
       }
     }
+    // If the slide matches the deck's sliderPosition's current, pass the ref value
+    const ref = slideIndex === sliderPositions[currentDeck].current ? slideRef : null
+
+    // If a new slide is needed to insert only card selector and that slide becomes the new curruent slide, 
+    // pass the ref value
+    const onlyCardSelectorSlideRef = slideIndex + 1 === sliderPositions[currentDeck].current ? slideRef : null
+    console.log("slideIndex: ", slideIndex, "current: ", sliderPositions[currentDeck].current)
 
     // If this is the last slide and there is less than 5 items in the slide, put the CardSelector in it
     if (slideIndex === numOfSlides && slideItems.length !== 5) {
       slideItems.push(cardSelector);
 
       const slide = (
-        <div key={slideIndex} className="slide" id={`${slideIndex}`}>
+        <div ref={ref} key={slideIndex} className="slide" id={`${slideIndex}`}>
           {slideItems}
         </div>
       );
@@ -74,15 +83,16 @@ const InnerSlider = (props: InnerSliderProps) => {
     // If this is the last slide and there is exactly 5 items in the slide, create a new slide and put the Card Selector in it
     else if (slideIndex === numOfSlides && slideItems.length === 5) {
       const slide = (
-        <div key={slideIndex} className="slide" id={`${slideIndex}`}>
+        <div ref={ref} key={slideIndex} className="slide" id={`${slideIndex}`}>
           {slideItems}
         </div>
       );
 
       slides.push(slide);
 
+      
       const newSlide = (
-        <div key={slideIndex + 1} className="slide" id={`${slideIndex + 1}`}>
+        <div ref={onlyCardSelectorSlideRef} key={slideIndex + 1} className="slide" id={`${slideIndex + 1}`}>
           {cardSelector}
         </div>
       );
@@ -92,7 +102,7 @@ const InnerSlider = (props: InnerSliderProps) => {
     // If there are more card items to render besides these 5, put the 5 in the current slide and move to the next loop.
     else {
       const slide = (
-        <div key={slideIndex} className="slide" id={`${slideIndex}`}>
+        <div ref={ref} key={slideIndex} className="slide" id={`${slideIndex}`}>
           {slideItems}
         </div>
       );
@@ -100,6 +110,21 @@ const InnerSlider = (props: InnerSliderProps) => {
       slides.push(slide);
     }
   }
+
+  // Move the slider to the current slide when either the arrow buttons are pressed or a different deck tab was 
+  // pressed
+
+  useEffect(()=>{
+    console.log(slideRef.current)
+    if(slideRef.current){
+        const currentSlide = slideRef.current
+
+        currentSlide.scrollIntoView({
+            inline:"start",
+            behavior:"smooth"
+        })
+    }
+  },[current])
 
   return (
     <div className="slideContainer">
