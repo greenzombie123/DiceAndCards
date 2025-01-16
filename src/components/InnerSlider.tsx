@@ -43,7 +43,6 @@ const InnerSlider = (props: InnerSliderProps) => {
   // Used to insure that every CardItem is placed in the correct slide.
   let cardCount: number = 0;
 
-
   // Loop through each slide
   for (let slideIndex = 1; slideIndex <= numOfSlides; slideIndex++) {
     const slideItems: JSX.Element[] = [];
@@ -55,6 +54,7 @@ const InnerSlider = (props: InnerSliderProps) => {
         cardCount++;
       }
     }
+
     // If the slide matches the deck's sliderPosition's current, pass the ref value
     const ref = slideIndex === sliderPositions[currentDeck].current ? slideRef : null
 
@@ -75,6 +75,7 @@ const InnerSlider = (props: InnerSliderProps) => {
 
       slides.push(slide);
     }
+    
     // If this is the last slide and there is exactly 5 items in the slide, create a new slide and put the Card Selector in it
     else if (slideIndex === numOfSlides && slideItems.length === 5) {
       const slide = (
@@ -110,7 +111,6 @@ const InnerSlider = (props: InnerSliderProps) => {
   // pressed
 
   useEffect(()=>{
-    console.log(slideRef.current)
     if(slideRef.current){
         const currentSlide = slideRef.current
 

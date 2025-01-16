@@ -13,8 +13,9 @@ const CardItem = (props: CardProps) => {
       <button onClick={onDeleteButtonClick(card.name)}>X</button>
       <div className="imgContainer">
         <img src={card.img} alt="" />
-      </div>
+        
       <p>{card.name}</p>
+      </div>
     </div>
   </div>;
 };

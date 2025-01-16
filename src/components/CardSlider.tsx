@@ -23,7 +23,7 @@ export type ChangeEvent = React.ChangeEvent<HTMLSelectElement>;
 const sliderPositionSet: SliderPositions = {
   barbarian: { current: 1, max: 1 },
   druid: { current: 1, max: 1 },
-  sage: { current: 1, max: 2 },
+  sage: { current: 1, max: 1 },
   builder: { current: 1, max: 1 },
 };
 
