@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Card, Deck } from "../Model/Cards";
 import CardItem from "./CardItem";
 import CardSelector from "./CardSelector";
@@ -75,7 +75,7 @@ const InnerSlider = (props: InnerSliderProps) => {
 
       slides.push(slide);
     }
-    
+
     // If this is the last slide and there is exactly 5 items in the slide, create a new slide and put the Card Selector in it
     else if (slideIndex === numOfSlides && slideItems.length === 5) {
       const slide = (
