@@ -9,11 +9,12 @@ interface InnerSliderProps {
   sliderPositions: SliderPositions;
   currentDeck: Deck;
   onChange:(event:ChangeEvent)=>void,
-  onAddButtonClick:()=>void
+  onAddButtonClick:()=>void,
+  onDeleteButtonClick: (name: string) => () => void;
 }
 
 const InnerSlider = (props: InnerSliderProps) => {
-  const { cards, sliderPositions, currentDeck, onChange, onAddButtonClick } = props;
+  const { cards, sliderPositions, currentDeck, onChange, onAddButtonClick, onDeleteButtonClick } = props;
   const {current} = sliderPositions[currentDeck]
   const slideRef = useRef<HTMLDivElement|null>(null)
 
@@ -22,7 +23,7 @@ const InnerSlider = (props: InnerSliderProps) => {
 
   const displayedCards: JSX.Element[] = cardsByDeck
     .filter((card) => card.isDisplayed)
-    .map((card) => <CardItem key={card.name} card={card} />);
+    .map((card) => <CardItem key={card.name} onDeleteButtonClick={onDeleteButtonClick} card={card} />);
 
   // Get the name of cards that will be displayed in the select element
   const cardSelectorCardList: Card[] = cardsByDeck

@@ -9,6 +9,7 @@ interface SliderProps {
   onChange: (event: ChangeEvent) => void;
   onAddButtonClick: () => void;
   onArrowButtonClick: (slideIndex: number) => () => void;
+  onDeleteButtonClick: (name: string) => () => void;
 }
 
 const Slider = ({
@@ -18,6 +19,7 @@ const Slider = ({
   onChange,
   onAddButtonClick,
   onArrowButtonClick,
+  onDeleteButtonClick
 }: SliderProps) => {
   const backgroundColor =
     currentDeck === "barbarian"
@@ -28,9 +30,9 @@ const Slider = ({
       ? "lightBlue"
       : "green";
 
-  const { current, max } = sliderPositions[currentDeck];
-  const prevSlide = current - 1 >= 1 ? `#${current - 1}` : "";
-  const nextSlide = current + 1 <= max ? `#${current + 1}` : "";
+  // const { current, max } = sliderPositions[currentDeck];
+  // const prevSlide = current - 1 >= 1 ? `#${current - 1}` : "";
+  // const nextSlide = current + 1 <= max ? `#${current + 1}` : "";
 
   // Render the arrow buttons based on the inner sliders's position
   const leftButton = sliderPositions[currentDeck].current !== 1 && (
@@ -47,6 +49,7 @@ const Slider = ({
     <div className={`${backgroundColor + " sliderContainer"}`}>
       {leftButton}
       <InnerSlider
+      onDeleteButtonClick={onDeleteButtonClick}
         cards={cards}
         sliderPositions={sliderPositions}
         currentDeck={currentDeck}

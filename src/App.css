@@ -104,6 +104,7 @@
       grid-area: 1/2/2/3;
       display: flex;
       flex-flow: row nowrap;
+      width: 100%;
 
       .slider{
         display: flex;
@@ -116,9 +117,10 @@
         .slide{
           flex: 0 0 100%;
           display: grid;
-          grid-template: auto / 1fr 1fr 1fr 1fr 1fr;
+          grid-template:  auto/ 1fr 1fr 1fr 1fr 1fr;  /*auto */
           gap: .5vw;
-          padding: 1vw 5px;
+          padding: 1vw 0;
+          width: 100%;
 
         .sliderItem{
   
@@ -132,6 +134,16 @@
 
             button{
               position: absolute;
+              border-radius: 50%;
+              background-color: white;
+              border: 1px red solid;
+              color: red;
+              right: 0;
+              font-size: 1vw;
+              width: 1.5vw;
+              height: 1.5vw;
+              cursor: pointer;
+              padding: 0;
             }
             .imgContainer{
               flex: 1;
@@ -157,7 +169,8 @@
             .top{
               border: 1px dotted;
               border-radius: 5px;
-              flex: 1;
+              /* flex: 1; */
+              height: 21.3vw;
               
               p{
                 font-size: var(--wordSize);
